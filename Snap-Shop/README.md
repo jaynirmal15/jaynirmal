@@ -84,6 +84,6 @@ Development
 # Jigar
 # Hiren
 # Pranesh
-# Tarangini
+# Jay Nirmal
 
 No license.
