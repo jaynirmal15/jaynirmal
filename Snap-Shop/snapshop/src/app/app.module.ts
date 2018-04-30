@@ -24,7 +24,7 @@ import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent, 
     NavComponent,
     Home1Component,
     MapComponent,
@@ -48,7 +48,11 @@ import { AlertComponent } from './alert/alert.component';
     })
 
   ],
-  providers: [AuthenticationService, scanProductService,RegistrationService, cartDisplayService],
+  providers: [
+    AuthenticationService,
+    scanProductService,
+    RegistrationService,
+    cartDisplayService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
