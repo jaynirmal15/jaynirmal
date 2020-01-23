@@ -1,0 +1,23 @@
+<div class="row"> 
+    <div class="col-xs-12">
+        <h3><label class="label label-primary"> Lend Money to Borrower</label></h3>
+        <form class="form-group" style="border:thin black solid;padding:10px;">
+            <div class="row">
+              <div class="col-sm-5 form-group">
+                <label class="label label-default">Name or ID of the borrower</label>
+                <input [(ngModel)]="name" name="name" type="text" class="form-control">
+              </div>
+              <div class="col-sm-2">
+                  <label class="label label-default">Amount</label>
+                  <input [(ngModel)]="amount" name="amount" type="number" class="form-control">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                  <button class="btn btn-success" (click)="addRequest()">LEND</button>
+              </div>
+            </div>
+          </form>
+    </div>
+  </div>
+  

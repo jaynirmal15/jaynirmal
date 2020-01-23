@@ -1,0 +1,27 @@
+<div *ngFor="let tran of tranc">
+  <div class="messageContainer">
+    <div class="messageData">
+      <a href="#" class="list-group-item clearfix" (click)="onSelected()">
+        <div class="pull-left" >
+          <!--<div>-->
+            <!--{{ tran.lender_id }}-->
+          <!--</div>-->
+          <ul class="list-inline">
+            <li class="list-inline-item">Lender : {{ tran.lender_id }}</li>
+            <li class="list-inline-item">Amount : {{ tran.amount }}</li>
+            <li class="list-inline-item">Borrower : {{ tran.borrower_id }}</li>
+            <li class="list-inline-item">Status : {{ tran.status }}</li>
+            <li class="list-inline-item">Transaction Date : {{ tran.transactionDate }}</li>
+          </ul>
+          <!-- <h4 class="list-group-item-heading"></h4>
+          <p class="list-group-item-text">
+
+          </p> -->
+
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+

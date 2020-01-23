@@ -1,0 +1,71 @@
+<nav class="navbr">
+        <a href="#" routerLink="/" routerLinkActive="active" style="color: white;padding: 2px;">MoneyDream</a>
+        <div class="dropdown" style="float:right;" >
+          <button class="dropbtn" >Settings</button><span  class="caret"></span>
+          <div class="dropdown-content">
+            <a href="#" data-toggle="modal" data-target="#exampleModal1">Profile</a>
+            <a href="#" data-toggle="modal" data-target="#exampleModal2">Lender Settings</a>
+            <a href="#">Logout</a>            
+          </div>
+        </div>
+        <button style="margin:4px;border: none; background: transparent;float: right;" (click)="balance()"><i class="material-icons">account_balance_wallet</i><span class="badge">{{ amount }}</span></button>
+</nav>
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">PROFILE SETTINGS</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Change Password</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Password">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Confirm Password</label>
+                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                </div>  
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">LENDER AND BORROWER SETTINGS</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Wants to be Lender
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<!-- <div class="container">
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark indigo" [containerInside]="false">
+<logo>
+  <a class="navbar-brand" href="#">Navbar</a>
+</logo>
+</mdb-navbar>
+</div> -->
+                        

@@ -1,0 +1,8 @@
+<div class = "serarchUser">
+    <input type ="search" ng-Model= "query" placeholder="Search User" #searchCriteria (keydown)="getUsers(searchCriteria.value)">
+    
+
+  <input id="typeahead-basic" type="text" class="form-control" />
+  <hr>
+  <pre>User: {{ user | json }}</pre>
+</div>

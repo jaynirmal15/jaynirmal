@@ -1,0 +1,28 @@
+<div class="col-xs-12">
+    <h4><label class="label label-primary"> Create a new Borrowing request</label></h4>
+     <form class="form-group" style="border:thin black solid;padding:10px;"> 
+        <form class="form-group">
+        <div class="row">
+          <div class="col-sm-5 form-group">
+            <label class="label label-default">Name or ID of the lender</label>
+            <input [(ngModel)]="lenderName" name= "lenderName" type="text" id="name" class="form-control">
+          </div>
+          <div class="col-sm-2">
+              <label class="label label-default">Amount</label>
+              <input [(ngModel)]="amt" name= "amt" type="number" id="amount" class="form-control">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+              <button class="btn btn-success" (click)="createRequest()">BORROW</button>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let b of borrowers">
+            
+             Name : {{b.name}} <br> Location :{{b.location}}
+          </div>
+        </div>
+      </form>
+      </form>
+    </div>

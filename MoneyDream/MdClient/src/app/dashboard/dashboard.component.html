@@ -1,0 +1,16 @@
+
+<div class="column-1">
+    <app-quick-links (featureSelected)="onNavigate($event)"></app-quick-links>
+</div>
+<div class="column-2">
+    <app-request *ngIf = "redirectPage === 'request'" [feature] = "redirectPage"></app-request>
+    <app-request *ngIf = "redirectPage === 'lend'" [feature] = "redirectPage"></app-request>
+    <app-request *ngIf = "redirectPage === 'borrow'" [feature] = "redirectPage"></app-request>
+    <app-search *ngIf = "redirectPage === 'search'" [feature] = "redirectPage"></app-search>
+  <app-notification *ngIf = "redirectPage === 'history'" [feature] = "redirectPage"></app-notification>
+</div>
+<div class="column-1">
+    <app-analytics></app-analytics>
+</div>
+
+

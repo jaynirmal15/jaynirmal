@@ -1,0 +1,44 @@
+@import '~sass/variables';
+@import '~sass/mixins';
+
+*{
+    height: 100%;
+    padding: 10px;
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 1px;
+    align-items:flex-start;
+    background-color: #201835;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    color: #A098A5;
+    border-radius: 8px;
+    transition: ease-in 0.2s;
+    margin-bottom: 20px;
+
+}
+
+.analysisContainer{
+    display: flex;
+    height: 300px;
+    /* width: 70%; */
+    min-width: auto;
+    border-radius: 5px;
+    /* align-items:stretch; */
+    align-self: center;
+    background-color: #eee;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.26), 0 3px 6px rgba(0,0,0,0.23);
+    border-left-width: 20%;
+}
+
+.chatContainer{
+    display: flex;
+    height: 300px;
+    /* width: 70%; */
+    min-width: auto;
+    border-radius: 5px;
+    /* align-items:stretch; */
+    align-self: center;
+    background-color: #eee;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.26), 0 3px 6px rgba(0,0,0,0.23);
+    border-left-width: 20%;
+}

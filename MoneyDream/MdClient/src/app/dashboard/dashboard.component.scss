@@ -1,0 +1,26 @@
+@import '~sass/variables';
+@import '~sass/mixins';
+
+$color_1: #fff;
+$font_family_1: "Open Sans", sans-serif;
+$background_color_1: #2A2845;
+$background_color_2: #fff;
+
+
+[class*='column-'] {
+    float: left;
+    padding: 1em;
+    width: 100%;
+	height: 683px;
+	text-align: center;
+	background-color: rgb(250, 244, 244);
+    border: 1px solid;
+
+    }
+@for $i from 1 through 4 {
+
+    .column-#{$i} {
+        width: 100% / 4 * $i;
+    }
+
+}

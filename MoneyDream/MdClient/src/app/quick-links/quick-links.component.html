@@ -1,0 +1,41 @@
+<div class="userList">
+  <ul>
+    <br>
+    <li (click)="onSelect('history')">Transaction History</li>
+    <li (click)="onSelect('request')">Home</li>
+    
+    <li (click)="onSelect('lend')">Lend Money
+
+    </li>
+    <br>
+    <li (click)="onSelect('borrow')">Borrow Money
+
+    </li>
+    <br>
+    <li (click)="onSelect('search')">Search</li>
+    <br>
+    <li><a href="#" data-toggle="modal" data-target="#wallet">Wallet</a></li>
+    <br>
+  </ul>
+
+</div>
+
+<div class="modal fade" id="wallet" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Wallet</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-wallet></app-wallet>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>

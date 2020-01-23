@@ -1,0 +1,7 @@
+<div class="input-group">
+    <span class="input-group-addon">Enter Amount to add money to wallet</span>
+    <input [(ngModel)] = "amount" name="amount" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+    <span class="input-group-addon"><button type="button" class="btn btn-default btn-sm" (click)="addMoney()">
+        <span class="glyphicon glyphicon-plus"></span>ADD
+    </button></span>    
+</div>
