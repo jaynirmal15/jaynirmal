@@ -1,0 +1,261 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "myVPC": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/16",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "net-csye6225-vpc"
+          }
+        ]
+      }
+    },
+    "publicsubnet1": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "VpcId": {
+          "Ref": "myVPC"
+        },
+        "CidrBlock": "10.0.1.0/24",
+        "MapPublicIpOnLaunch": "true",
+        "AvailabilityZone": "us-east-1a",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "net-public-subnet-1"
+          }
+        ]
+      }
+    },
+    "privatesubnet1": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "VpcId": {
+          "Ref": "myVPC"
+        },
+        "CidrBlock": "10.0.2.0/24",
+        "MapPublicIpOnLaunch": false,
+        "AvailabilityZone": "us-east-1a",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "net-private-subnet-1"
+          }
+        ]
+      }
+    },
+    "publicsubnet2": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "VpcId": {
+          "Ref": "myVPC"
+        },
+        "CidrBlock": "10.0.3.0/24",
+        "MapPublicIpOnLaunch": true,
+        "AvailabilityZone": "us-east-1b",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "net-public-subnet-2"
+          }
+        ]
+      }
+    },
+    "privatesubnet2": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "VpcId": {
+          "Ref": "myVPC"
+        },
+        "CidrBlock": "10.0.4.0/24",
+        "MapPublicIpOnLaunch": false,
+        "AvailabilityZone": "us-east-1b",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "net-private-subnet-2"
+          }
+        ]
+      }
+    },
+    "publicsubnet3": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "VpcId": {
+          "Ref": "myVPC"
+        },
+        "CidrBlock": "10.0.5.0/24",
+        "MapPublicIpOnLaunch": true,
+        "AvailabilityZone": "us-east-1c",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "net-public-subnet-3"
+          }
+        ]
+      }
+    },
+    "privatesubnet3": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "VpcId": {
+          "Ref": "myVPC"
+        },
+        "CidrBlock": "10.0.6.0/24",
+        "MapPublicIpOnLaunch": false,
+        "AvailabilityZone": "us-east-1c",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "net-private-subnet-3"
+          }
+        ]
+      }
+    },
+    "myInternetGateway": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "net-csye6225-InternetGateway"
+          }
+        ]
+      }
+    },
+    "AttachGateway": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "VpcId": {
+          "Ref": "myVPC"
+        },
+        "InternetGatewayId": {
+          "Ref": "myInternetGateway"
+        }
+      }
+    },
+    "publicRouteTable": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "myVPC"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "net-csye6225-public-route-table"
+          }
+        ]
+      }
+    },
+    "publicRoute": {
+      "Type": "AWS::EC2::Route",
+      "DependsOn": "AttachGateway",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "publicRouteTable"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "myInternetGateway"
+        }
+      }
+    },
+    "publicSubnet1RouteTableAssociation": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "publicRouteTable"
+        },
+        "SubnetId": {
+          "Ref": "publicsubnet1"
+        }
+      }
+    },
+    "publicSubnet2RouteTableAssociation": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "publicRouteTable"
+        },
+        "SubnetId": {
+          "Ref": "publicsubnet2"
+        }
+      }
+    },
+    "publicSubnet3RouteTableAssociation": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "publicRouteTable"
+        },
+        "SubnetId": {
+          "Ref": "publicsubnet3"
+        }
+      }
+    },
+    "privateRouteTable": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "myVPC"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "net-csye6225-private-route-table"
+          }
+        ]
+      }
+    },
+    "privateRoute": {
+      "Type": "AWS::EC2::Route",
+      "DependsOn": "AttachGateway",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "privateRouteTable"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "myInternetGateway"
+        }
+      }
+    },
+    "privateSubnet1RouteTableAssociation": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "privateRouteTable"
+        },
+        "SubnetId": {
+          "Ref": "privatesubnet1"
+        }
+      }
+    },
+    "privateSubnet2RouteTableAssociation": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "privateRouteTable"
+        },
+        "SubnetId": {
+          "Ref": "privatesubnet2"
+        }
+      }
+    },
+    "privateSubnet3RouteTableAssociation": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "privateRouteTable"
+        },
+        "SubnetId": {
+          "Ref": "privatesubnet3"
+        }
+      }
+    }
+  }
+}

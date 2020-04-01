@@ -1,0 +1,29 @@
+language: node_js
+node_js:
+ - "9.4.0"
+
+script:
+ - pwd
+ - pip --version
+ - pip install awscli --upgrade --user
+ - aws --version
+ - mkdir -p ~/.aws
+ - touch ~/.aws/credentials
+ - echo [default] > ~/.aws/credentials
+ - echo aws_access_key_id = $access_key_id >> ~/.aws/credentials
+ - echo aws_secret_access_key = $secret_access_key >> ~/.aws/credentials
+ - touch ~/.aws/config
+ - echo [default] > ~/.aws/config
+ - echo region = us-east-1 >> ~/.aws/config
+ - echo output = json >> ~/.aws/config
+ - echo s3_bucket = $s3_bucket >> ~/.aws/config
+ - pwd
+
+after_success:
+ - pwd
+ - ls -lrt
+ - zip csye6225-lambda.zip index.js >/dev/null
+ - ls -lrt
+ - pwd
+ - cat ~/.aws/config
+ - aws s3 cp csye6225-lambda.zip s3://$s3_bucket/

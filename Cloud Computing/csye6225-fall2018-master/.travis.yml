@@ -1,0 +1,85 @@
+
+language: node_js
+node_js:
+  - "10.12.0"
+
+
+script:
+  - cd webapp/WebApp/
+  - npm install
+  - ls -lrt
+  - pwd
+  - cd ../..
+  - ls -lrt
+
+after_success:
+  - pwd
+  - ls -ltr
+  - mkdir codedeploy_artifact
+  - cp infrastructure/aws/codedeploy/*.sh .
+  - cp infrastructure/aws/codedeploy/*.yml .
+  - zip -r csye6225-fall2018-package-$TRAVIS_JOB_NUMBER.zip webapp/WebApp/ **.sh *.yml
+  - ls -la
+  - mv csye6225-fall2018-package-$TRAVIS_JOB_NUMBER.zip  codedeploy_artifact/
+  - ls -la
+  - cd  codedeploy_artifact/
+  - ls -la
+  - pwd
+  - cd ..
+#  - chmod -R 777 codedeploy_artifact/
+  - pwd
+  - ls -la
+
+#   - mkdir codedeploy_artifact
+#   - ls -la
+#   - cp infrastructure/aws/codedeploy/*.sh codedeploy_artifact/
+#   - cp infrastructure/aws/codedeploy/*.yml codedeploy_artifact/
+#   - ls -la
+#   - zip -r csye6225-fall2018.zip ./* >/dev/null
+#   - cp csye6225-fall2018.zip ./../codedeploy_artifact/
+#   - rm -rf csye6225-fall2018.zip
+#   - pwd
+#   - cd codedeploy_artifact/
+#   - ls -la
+#   - zip -r csye6225-fall2018-$TRAVIS_JOB_NUMBER.zip *.yml *.sh csye6225-fall2018.zip >/dev/null 2>&1
+#   - rm -rf csye6225-fall2018.zip
+#   - pwd
+#   - cd ..
+#   - pwd
+
+
+deploy:
+  - provider: s3 
+    local_dir: codedeploy_artifact/
+    bucket: $s3_bucket
+    region: us-east-1
+    skip_cleanup: true
+    access_key_id: $access_key_id
+    secret_access_key: $secret_access_key
+    wait-until-deployed: true
+    on:
+      branch: master
+
+  - provider: codedeploy
+    access_key_id: $access_key_id
+    bucket: $s3_bucket
+    key: csye6225-fall2018-package-$TRAVIS_JOB_NUMBER.zip
+    bundle_type: zip
+    application: $application
+    deployment_group: $deployment_group
+    region: us-east-1
+    secret_access_key: $secret_access_key
+    wait-until-deployed: true
+    on:
+      branch: master
+
+
+cache:
+  directories:
+    -node_modules
+
+notifications:
+  email:
+    on_success: always
+    on_failure: always
+

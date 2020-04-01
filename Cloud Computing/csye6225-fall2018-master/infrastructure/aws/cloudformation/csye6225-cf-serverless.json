@@ -1,0 +1,121 @@
+
+{
+"AWSTemplateFormatVersion" : "2010-09-09",
+"Description" : "SNS",
+"Parameters" : {
+  "roleName" : {
+    "Type": "String"    
+  },
+  "s3domain": {
+    "Type": "String",
+    "Default": "code-deploy.csye6225-fall2018-sawale.me"
+  },
+  "fnName": {
+    "Type": "String",
+    "Default": "lambdaFunction"
+  }
+},
+"Resources" : {
+			"lambdaServiceRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "RoleName": { "Ref" : "roleName" },
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                            },
+                            "Action": [
+                                "sts:AssumeRole"
+                            ]
+                        }
+                    ]
+                },
+                "ManagedPolicyArns": [
+                    "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+                    "arn:aws:iam::aws:policy/AmazonSESFullAccess",
+                    "arn:aws:iam::aws:policy/AWSLambdaFullAccess"
+                ],
+                "Path": "/",
+                "Policies": [
+                    {
+                        "PolicyName": "lambda_DB",
+                        "PolicyDocument": {
+                            "Version": "2012-10-17",
+                            "Statement": [
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "logs:CreateLogGroup",
+                                        "logs:CreateLogStream",
+                                        "logs:PutLogEvents"
+                                    ],
+                                    "Resource": "arn:aws:logs:::*"
+                                },
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "dynamodb:*"
+                                    ],
+                                    "Resource": [
+                                        "arn:aws:dynamodb:us-east-1::table/"
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },		
+      "MySNSTopic":{
+        "Type":"AWS::SNS::Topic",
+        "Properties":{
+            "Subscription":[
+            {
+              "Endpoint":{
+              	"Fn::GetAtt": [
+            			"MyLambdaFunction",
+            			"Arn"
+           			]
+         			},
+              "Protocol":"lambda"
+            }
+          ],
+          "TopicName":"LambdaTopic"
+        }
+      },
+      "LambdaInvokePermission": {
+        "Type": "AWS::Lambda::Permission",
+        "Properties": {
+            "Action": "lambda:InvokeFunction",
+            "Principal": "sns.amazonaws.com",
+            "SourceArn": {"Ref": "MySNSTopic"},
+            "FunctionName": {"Ref": "MyLambdaFunction"}
+         }
+      },
+      "MyLambdaFunction": {
+       "Type": "AWS::Lambda::Function",
+       "DependsOn": [
+         "lambdaServiceRole"
+       ],
+       "Properties": {
+       		"Code": {
+         		"S3Bucket": { "Ref" : "s3domain"},
+          	"S3Key": "csye6225-lambda.zip"
+       		},
+       		"Role": {
+	          "Fn::GetAtt": [
+	            "lambdaServiceRole",
+	            "Arn"
+          	]
+        	},
+         	"Handler": "index.handler",
+         	"Runtime": "nodejs8.10",
+         	"FunctionName": {"Ref" : "fnName"}
+       }
+     }
+    }
+}
